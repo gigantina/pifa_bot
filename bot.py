@@ -15,7 +15,7 @@ bot = telebot.TeleBot(config.TOKEN)
 def welcome(message):
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     item1 = types.KeyboardButton("5 Новостей")
-    item2 = types.KeyboardButton("Теоремы геометрии и алгебры")
+    item2 = types.KeyboardButton("Простое число")
     item3 = types.KeyboardButton('Орел и Решка')
     item4 = types.KeyboardButton('Погода')
     markup.add(item1, item2, item3, item4)
@@ -28,6 +28,7 @@ def welcome(message):
 @bot.message_handler(content_types=['text'])
 def dialog(message):
     global weather_
+    global simple_
     if message.text == '5 Новостей':
         for i in functions.parser():
             bot.send_message(message.chat.id, i)
