@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup as BS
 import random
 from pyowm import OWM
+import config
 
 def parser():
     r = requests.get('https://ria.ru/')
