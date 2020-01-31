@@ -45,6 +45,8 @@ def simple(x):
         dividers = [str(i)  for i in range(1, x + 1) if x % i == 0]
         if len(dividers) > 2:
             dividers = ', '.join(dividers)
+        elif x < 0:
+            dividers = 'Введи положительное число'
         else:
             dividers = 'Простое число'
     except:
