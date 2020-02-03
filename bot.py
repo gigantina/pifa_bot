@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 import telebot
 import config
-import functions
-
-from telebot import types
+import functions as f
 
 weather_ = False
 simple_ = False
@@ -13,13 +11,7 @@ bot = telebot.TeleBot(config.TOKEN)
 
 @bot.message_handler(commands=['start'])
 def welcome(message):
-    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    item1 = types.KeyboardButton("5 Новостей")
-    item2 = types.KeyboardButton("Простое число")
-    item3 = types.KeyboardButton('Орел и Решка')
-    item4 = types.KeyboardButton('Погода')
-    markup.add(item1, item2, item3, item4)
-
+    markup = f.menu()
     bot.send_message(message.chat.id,
                      'Привет, {0.first_name}!\n Я Пифа, кабарга. Создана для выполнения крайне необходимых задач) Ну а если хочешь узнать, кто это такая ваша кабарга, то вот ссылка: https://ru.wikipedia.org/wiki/%D0%9A%D0%B0%D0%B1%D0%B0%D1%80%D0%B3%D0%B0'.format(
                          message.from_user), parse_mode='html', reply_markup=markup)
@@ -29,33 +21,43 @@ def welcome(message):
 def dialog(message):
     global weather_
     global simple_
-    if message.text == '5 Новостей':
-        for i in functions.parser():
+
+    if message.text != 'Хватит' and weather_:
+        weather_ = False
+        gorod = str(message.text)
+        temperature = f.weather(gorod)
+        bot.send_message(message.chat.id, temperature)
+
+    elif message.text != 'Хватит' and simple_:
+        number = str(message.text)
+        number = f.simple(number)
+        simple_ = False
+        bot.send_message(message.chat.id, number)
+
+    elif message.text == 'Хватит':
+        simple_ = False
+        weather_ = False
+        markup = f.menu()
+        bot.send_message(message.chat.id, )
+
+
+    elif message.text == '5 Новостей':
+        for i in f.parser():
             bot.send_message(message.chat.id, i)
 
     elif message.text == 'Орел и Решка':
-        choice = functions.orel()
+        choice = f.orel()
         bot.send_message(message.chat.id, choice)
 
     elif message.text == 'Простое число':
         simple_ = True
-        bot.send_message(message.chat.id, 'Введи число')
+        markup = f.break_()
+        bot.send_message(message.chat.id, 'Введи число', parse_mode='html', reply_markup=markup)
 
     elif message.text == 'Погода':
         weather_ = True
-        bot.send_message(message.chat.id, 'Введи город')
-
-    elif message.text != 'Погода' and weather_:
-        weather_ = False
-        gorod = str(message.text)
-        temperature = functions.weather(gorod)
-        bot.send_message(message.chat.id, temperature)
-
-    elif message.text != 'Простое число' and simple_:
-        number = str(message.text)
-        number = functions.simple(number)
-        simple_ = False
-        bot.send_message(message.chat.id, number)
+        markup = f.break_()
+        bot.send_message(message.chat.id, 'Введи город', parse_mode='html', reply_markup=markup)
 
     else:
         bot.send_message(message.chat.id, 'Мой глупый автор не прописал диалоги 😢')
