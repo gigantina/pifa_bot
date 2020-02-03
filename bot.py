@@ -36,7 +36,7 @@ def dialog(message):
         simple_ = False
         weather_ = False
         markup = f.menu()
-        bot.send_message(message.chat.id, parse_mode='html', reply_markup=markup)
+        bot.send_message(message.chat.id, 'Ок', parse_mode='html', reply_markup=markup)
 
     elif message.text == '5 Новостей':
         for i in f.parser():
