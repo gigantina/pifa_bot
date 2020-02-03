@@ -23,7 +23,6 @@ def dialog(message):
     global simple_
 
     if message.text != 'Хватит' and weather_:
-        weather_ = False
         gorod = str(message.text)
         temperature = f.weather(gorod)
         bot.send_message(message.chat.id, temperature)
@@ -31,7 +30,6 @@ def dialog(message):
     elif message.text != 'Хватит' and simple_:
         number = str(message.text)
         number = f.simple(number)
-        simple_ = False
         bot.send_message(message.chat.id, number)
 
     elif message.text == 'Хватит':
