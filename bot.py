@@ -26,21 +26,21 @@ def dialog(message):
 
     elif message.text == 'Погода':
         bot.send_message(message.chat.id, 'Введи город', parse_mode='html')
-        weather_in_bot(message)
+        perehod()
 
     elif message.text == 'Угадай число':
-        x = numbers(x)
         bot.send_message(message.chat.id, x)
 
     else:
         bot.send_message(message.chat.id, 'Мой глупый автор не прописал диалоги 😢')
 
 
-def weather_in_bot(message):
-    gorod = str(message.text)
-    temperature = f.weather(gorod)
-    bot.send_message(message.chat.id, temperature)
-    
+def perehod():
+    def weather_in_bot(message):
+        gorod = str(message.text)
+        temperature = f.weather(gorod)
+        bot.send_message(message.chat.id, temperature)
+
 def numbers(x):
     y = randint(1, 1000000)
     if y == x:
