@@ -58,15 +58,9 @@ def simple(x):
 def menu():
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     item1 = types.KeyboardButton("5 Новостей")
-    item2 = types.KeyboardButton("Простое число")
+    item2 = types.KeyboardButton("Угадай число")
     item3 = types.KeyboardButton('Орел и Решка')
     item4 = types.KeyboardButton('Погода')
     markup.add(item1, item2, item3, item4)
-    return markup
-
-def break_():
-    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    item1 = types.KeyboardButton("Хватит")
-    markup.add(item1)
     return markup
 

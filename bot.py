@@ -3,9 +3,6 @@ import telebot
 import config
 import functions as f
 
-weather_ = False
-simple_ = False
-
 bot = telebot.TeleBot(config.TOKEN)
 
 
@@ -19,26 +16,7 @@ def welcome(message):
 
 @bot.message_handler(content_types=['text'])
 def dialog(message):
-    global weather_
-    global simple_
-
-    if message.text != 'Хватит' and weather_:
-        gorod = str(message.text)
-        temperature = f.weather(gorod)
-        bot.send_message(message.chat.id, temperature)
-
-    elif message.text != 'Хватит' and simple_:
-        number = str(message.text)
-        number = f.simple(number)
-        bot.send_message(message.chat.id, number)
-
-    elif message.text == 'Хватит':
-        simple_ = False
-        weather_ = False
-        markup = f.menu()
-        bot.send_message(message.chat.id, 'Ок', parse_mode='html', reply_markup=markup)
-
-    elif message.text == '5 Новостей':
+    if message.text == '5 Новостей':
         for i in f.parser():
             bot.send_message(message.chat.id, i)
 
@@ -46,18 +24,28 @@ def dialog(message):
         choice = f.orel()
         bot.send_message(message.chat.id, choice)
 
-    elif message.text == 'Простое число':
-        simple_ = True
-        markup = f.break_()
-        bot.send_message(message.chat.id, 'Введи число', parse_mode='html', reply_markup=markup)
-
     elif message.text == 'Погода':
-        weather_ = True
-        markup = f.break_()
-        bot.send_message(message.chat.id, 'Введи город', parse_mode='html', reply_markup=markup)
+        bot.send_message(message.chat.id, 'Введи город', parse_mode='html')
+        weather_in_bot(message)
+
+    elif message.text == 'Угадай число':
+        x = numbers(x)
+        bot.send_message(message.chat.id, x)
 
     else:
         bot.send_message(message.chat.id, 'Мой глупый автор не прописал диалоги 😢')
 
+
+def weather_in_bot(message):
+    gorod = str(message.text)
+    temperature = f.weather(gorod)
+    bot.send_message(message.chat.id, temperature)
+    
+def numbers(x):
+    y = randint(1, 1000000)
+    if y == x:
+        bot.send_message(message.chat.id, 'Вы победили!')
+    else:
+        bot.send_message(message.chat.id, 'Нет, на самом деле {}'.format(y))
 
 bot.polling(none_stop=True, interval=0)
