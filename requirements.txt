@@ -1,13 +1,8 @@
-<<<<<<< HEAD
-telebot
-TelegramBotAPI
 aiohttp==3.6.2
 asgiref==3.2.3
 astroid==2.3.3
 async-timeout==3.0.1
 attrs==19.3.0
-=======
->>>>>>> 5253ab73d817696373ba5264f8c1edba4e477f02
 beautifulsoup4==4.8.2
 certifi==2019.11.28
 chardet==3.0.4
