@@ -5,6 +5,7 @@ from pyowm import OWM
 import config
 from telebot import types
 
+
 def parser():
     r = requests.get('https://ria.ru/')
     html = BS(r.content, 'html.parser')
@@ -43,7 +44,7 @@ def orel():
 def simple(x):
     try:
         x = int(x)
-        dividers = [str(i)  for i in range(1, x + 1) if x % i == 0]
+        dividers = [str(i) for i in range(1, x + 1) if x % i == 0]
         if len(dividers) > 2:
             dividers = ', '.join(dividers)
         elif x < 0:
@@ -64,9 +65,9 @@ def menu():
     markup.add(item1, item2, item3, item4)
     return markup
 
+
 def break_():
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     item1 = types.KeyboardButton("Хватит")
     markup.add(item1)
     return markup
-
