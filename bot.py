@@ -8,6 +8,7 @@ from levels import User
 bot = telebot.TeleBot(config.TOKEN)
 user = User(bot)
 
+
 @bot.message_handler(commands=['start'])
 def welcome(message):
     markup = f.menu()
@@ -18,13 +19,7 @@ def welcome(message):
 
 @bot.message_handler(content_types=['text'])
 def dialog(message):
-<<<<<<< HEAD
     global user
-
-=======
-    global bot
-    user = User(bot)
->>>>>>> 5253ab73d817696373ba5264f8c1edba4e477f02
 
     if message.text != 'Хватит' and user.weather:
         user.weather = False
@@ -42,7 +37,7 @@ def dialog(message):
         user.number = False
         user.weather = False
         markup = f.menu()
-        bot.send_message(message.chat.id, 'Ok')
+        bot.send_message(message.chat.id, 'Ok', reply_markup=markup)
 
     elif message.text == '5 Новостей':
         for i in f.parser():
@@ -51,6 +46,7 @@ def dialog(message):
     elif message.text == 'Орел и Решка':
         choice = f.orel()
         bot.send_message(message.chat.id, choice)
+
     elif message.text == 'Простое число':
         user.number = True
         markup = f.break_()
@@ -60,9 +56,6 @@ def dialog(message):
         user.weather = True
         markup = f.break_()
         bot.send_message(message.chat.id, 'Введи город', parse_mode='html', reply_markup=markup)
-    elif message.text == 'Погода':
-        bot.send_message(message.chat.id, 'Введи город', parse_mode='html')
-        perehod()
 
     elif message.text == 'Угадай число':
         bot.send_message(message.chat.id, x)
@@ -71,28 +64,6 @@ def dialog(message):
         bot.send_message(message.chat.id, 'Мой глупый автор не прописал диалоги 😢')
 
 
-def perehod():
-    def weather_in_bot(message):
-        gorod = str(message.text)
-        temperature = f.weather(gorod)
-        bot.send_message(message.chat.id, temperature)
-
-
-<<<<<<< HEAD
-def numbers(x):
-    y = randint(1, 1000000)
-    if y == x:
-        bot.send_message(message.chat.id, 'Вы победили!')
-    else:
-        bot.send_message(message.chat.id, 'Нет, на самом деле {}'.format(y))
-
-
-bot.polling(none_stop=True, interval=0)
-        temperature = f.weather(gorod)
-        bot.send_message(message.chat.id, temperature)
-
-=======
->>>>>>> 5253ab73d817696373ba5264f8c1edba4e477f02
 def numbers(x):
     y = randint(1, 1000000)
     if y == x:
