@@ -65,12 +65,8 @@ def menu():
     markup.add(item1, item2, item3, item4)
     return markup
 
-<<<<<<< HEAD
-
 def break_():
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     item1 = types.KeyboardButton("Хватит")
     markup.add(item1)
     return markup
-=======
->>>>>>> d276710030e369136b605d481efb2948d1758740

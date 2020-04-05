@@ -18,8 +18,13 @@ def welcome(message):
 
 @bot.message_handler(content_types=['text'])
 def dialog(message):
+<<<<<<< HEAD
     global user
 
+=======
+    global bot
+    user = User(bot)
+>>>>>>> 5253ab73d817696373ba5264f8c1edba4e477f02
 
     if message.text != 'Хватит' and user.weather:
         user.weather = False
@@ -73,6 +78,7 @@ def perehod():
         bot.send_message(message.chat.id, temperature)
 
 
+<<<<<<< HEAD
 def numbers(x):
     y = randint(1, 1000000)
     if y == x:
@@ -85,6 +91,8 @@ bot.polling(none_stop=True, interval=0)
         temperature = f.weather(gorod)
         bot.send_message(message.chat.id, temperature)
 
+=======
+>>>>>>> 5253ab73d817696373ba5264f8c1edba4e477f02
 def numbers(x):
     y = randint(1, 1000000)
     if y == x:
@@ -92,5 +100,5 @@ def numbers(x):
     else:
         bot.send_message(message.chat.id, 'Нет, на самом деле {}'.format(y))
 
->>>>>>> d276710030e369136b605d481efb2948d1758740
+
 bot.polling(none_stop=True, interval=0)
